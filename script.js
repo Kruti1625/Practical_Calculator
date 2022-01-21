@@ -127,37 +127,37 @@ function eventList(e){ //Event listener callback function
                 break;
             case 'sin':
                 if(btnDeg.classList.contains("active"))
-                    display.value = mnjs.sin.deg(+display.value);
+                    display.value = mnjs.sin.deg(+display.value); //mnjs - npm library
                 else 
                     display.value = Math.sin(display.value);
                 break;
             case 'cos':
                 if(btnDeg.classList.contains("active"))
-                    display.value = mnjs.cos.deg(+display.value);
+                    display.value = mnjs.cos.deg(+display.value); //mnjs - npm library
                 else 
                     display.value = Math.cos(display.value);
                 break;
             case 'tan':
                 if(btnDeg.classList.contains("active"))
-                    display.value = mnjs.tan.deg(+display.value);
+                    display.value = mnjs.tan.deg(+display.value); //mnjs - npm library
                 else 
                     display.value = Math.tan(display.value);
                 break;
             case 'sinh':
                 if(btnDeg.classList.contains("active"))
-                    display.value = mnjs.sinh.deg(+display.value);
+                    display.value = mnjs.sinh.deg(+display.value); //mnjs - npm library
                 else 
                     display.value = Math.sinh(display.value);
                 break;
             case 'cosh':
                 if(btnDeg.classList.contains("active"))
-                    display.value = mnjs.cosh.deg(+display.value);
+                    display.value = mnjs.cosh.deg(+display.value); //mnjs - npm library
                 else 
                     display.value = Math.cosh(display.value);
                 break;
             case 'tanh':
                 if(btnDeg.classList.contains("active"))
-                    display.value = mnjs.tanh.deg(+display.value);
+                    display.value = mnjs.tanh.deg(+display.value); //mnjs - npm library
                 else 
                     display.value = Math.tanh(display.value);
                 break;
