@@ -238,7 +238,7 @@ function eventList(e){ //Event listener callback function
                 display.value = Math.cbrt(display.value);
                 break;
             case 'eraisex':
-                display.value = Math.pow(2.71828182846,display.value);
+                display.value = Math.pow(Math.E,display.value);
                 break;
             case 'deg':
                 btnDeg.classList.remove("active");
