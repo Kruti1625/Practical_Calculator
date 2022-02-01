@@ -1,85 +1,91 @@
-"use strict";
-
-const display = document.querySelector(".display-screen");
-const buttons = document.querySelectorAll("button");
-const btnMC = document.querySelector("#mc");
-const btnMR = document.querySelector("#mr");
-const bfr = document.querySelectorAll(".bfr");
-const afr = document.querySelectorAll(".afr");
-const btn2nd = document.querySelector("#btn2nd");
-const btnDeg = document.querySelector(".deg");
-const btnRad = document.querySelector(".rad");
-getComputedStyle(document.documentElement) // Get css variables 
-    .getPropertyValue('--color-blue','--color-grey-deactive','--color-white-button','--color-black');
+//Queryselectors
+const display = document.querySelector(".display-screen")! as HTMLInputElement;
+const btnMC = document.querySelector("#mc")! as HTMLButtonElement;
+const btnMR = document.querySelector("#mr")! as HTMLButtonElement;
+const btn2nd = document.querySelector("#btn2nd")! as HTMLButtonElement;
+const btnDeg = document.querySelector(".deg")! as HTMLButtonElement;
+const btnRad = document.querySelector(".rad")! as HTMLButtonElement;
+const buttons = document.querySelectorAll("button")!;
+const afr = document.querySelectorAll(".afr")!;
+const bfr = document.querySelectorAll(".bfr")!;
+getComputedStyle(document.documentElement).getPropertyValue('--color-blue');
+getComputedStyle(document.documentElement).getPropertyValue('--color-grey-deactive');
+getComputedStyle(document.documentElement).getPropertyValue('--color-white-button');
+getComputedStyle(document.documentElement).getPropertyValue('--color-black');
 
 //Functions
 function func_fact(){ //Factorial
-    let fact=1,i;
-    for(i = 1;i<=display.value;i++){
+    let fact=1,i:number;
+    for(i = 1;i<=(+display.value);i++){
         fact = fact * i;
     }
-    if(display.value <= 0) 
+    if((+display.value) <= 0) 
         throw new Error("Invalid input!");
     return fact; 
 }
 
-function func_xraisey() { 
-    let dvalue,a,b;
-    dvalue = display.value;
+function func_xraisey() {
+    let dvalue:string,a:string,b:string;
+    dvalue = String(display.value);
     a = dvalue.slice(0,dvalue.indexOf("^")); //Return 1st value 
-    b = dvalue.slice(dvalue.indexOf("^") + 1); //RTeturn 2nd value
-    return Math.pow(a,b);
+    b = dvalue.slice(dvalue.indexOf("^") + 1); //Return 2nd value
+    console.log(a,b);
+    return Math.pow(+a,+b);
 }
 
-let arr_ms = [] , i = 0;
+function func_yrootx() { 
+    let dvalue:string,a:string,b:string;
+    dvalue = String(display.value);
+    a = dvalue.slice(0,dvalue.indexOf("y")); 
+    b = dvalue.slice(dvalue.indexOf("t") + 1);
+    return Math.pow(+a,1/(+b));
+}
+
+function func_logbase() {
+    let dvalue:string,a:string,b:string;
+    dvalue = String(display.value);
+    a = dvalue.slice(0,dvalue.indexOf("l")); 
+    b = dvalue.slice(dvalue.indexOf("e") + 1);
+    return Math.log(+a)/Math.log(+b);
+}
+
+let arr_ms:number[] = [] , i = 0;
 function func_ms() { // Memory store
         if(arr_ms.length === 0)
             alert("Nothing is stored in the memory");
         else {
-            display.value = arr_ms[i]; 
+            display.value = String(arr_ms[i]); 
             i++;
             if(i === arr_ms.length){
                 i = 0;
             }
         }
 }
+
 function func_mplus() { //Memory plus
     arr_ms.push(+display.value);
-    display.value = '';
+    display.value = ''; 
     btnMR.style.color = "var(--color-black)";
     btnMC.style.color = "var(--color-black)";
 }
+
 function func_mminus(){ //Memory minus
     arr_ms.push(-display.value);
     display.value = '';
     btnMR.style.color = "var(--color-black)";
     btnMC.style.color = "var(--color-black)";
 }
+
 function func_mr(){ //Memory recall
-    let result = arr_ms.reduce((acc, cur) => acc + cur, 0);
-    display.value = result;
+    let result = arr_ms.reduce((acc:number, cur:number) => acc + cur, 0);
+    display.value = String(result);
 }
+
 function func_mc() { //Memory clear
     arr_ms = [];
     display.value = '';
     btnMR.style.color = "var(--color-grey-deactive)";
     btnMC.style.color = "var(--color-grey-deactive)";
-}
-
-function func_yrootx() { 
-    let dvalue,a,b;
-    dvalue = display.value;
-    a = dvalue.slice(0,dvalue.indexOf("y")); 
-    b = dvalue.slice(dvalue.indexOf("t") + 1);
-    return Math.pow(a,1/b);
-}
-
-function func_logbase() {
-    let dvalue,a,b;
-    dvalue = display.value;
-    a = dvalue.slice(0,dvalue.indexOf("l")); 
-    b = dvalue.slice(dvalue.indexOf("e") + 1);
-    return Math.log(a)/Math.log(b);
 }
 
 function func_2nd(){ //Button 2nd
@@ -93,27 +99,27 @@ function func_2nd(){ //Button 2nd
     })
 }
 
-function eventList(e){ //Event listener callback function
+function eventList(e : any){ //Event listener callback function
     let btnText = e.target.dataset.sign; // Using data attribute
 
     switch(btnText){
             case 'C':
-                display.value = '';
+                display.value = "";
                 break;
             case '=':
                 try{
                     if(display.value.includes("^")){
-                        display.value = func_xraisey();
+                        display.value = String(func_xraisey());
                     }
                     else if(display.value.includes("yroot")){
-                        display.value = func_yrootx();
+                        display.value = String(func_yrootx());
                     }
                     else if(display.value.includes("log base")){
-                        display.value = func_logbase();
+                        display.value = String(func_logbase());
                     }
                     else{
                         display.value = eval(display.value);
-                    }
+                    }  
                 } catch {
                     display.value = "Error"
                 }
@@ -125,94 +131,94 @@ function eventList(e){ //Event listener callback function
                 break;
             case 'sin':
                 if(btnDeg.classList.contains("active"))
-                    display.value = mnjs.sin.deg(+display.value); //mnjs - npm library
+                    display.value = String(Math.sin((((+display.value) * Math.PI)/180)));
                 else 
-                    display.value = Math.sin(display.value);
+                    display.value = String(Math.sin(+display.value));
                 break;
             case 'cos':
                 if(btnDeg.classList.contains("active"))
-                    display.value = mnjs.cos.deg(+display.value); //mnjs - npm library
+                    display.value = String(Math.cos((((+display.value) * Math.PI)/180)));
                 else 
-                    display.value = Math.cos(display.value);
+                    display.value = String(Math.cos(+display.value));
                 break;
             case 'tan':
                 if(btnDeg.classList.contains("active"))
-                    display.value = mnjs.tan.deg(+display.value); //mnjs - npm library
+                    display.value = String(Math.tan((((+display.value) * Math.PI)/180)));
                 else 
-                    display.value = Math.tan(display.value);
+                    display.value = String(Math.tan(+display.value));
                 break;
             case 'sinh':
                 if(btnDeg.classList.contains("active"))
-                    display.value = mnjs.sinh.deg(+display.value); //mnjs - npm library
+                    display.value = String(Math.sinh((((+display.value) * Math.PI)/180)));
                 else 
-                    display.value = Math.sinh(display.value);
+                    display.value = String(Math.sinh(+display.value));
                 break;
             case 'cosh':
                 if(btnDeg.classList.contains("active"))
-                    display.value = mnjs.cosh.deg(+display.value); //mnjs - npm library
+                    display.value = String(Math.cosh((((+display.value) * Math.PI)/180)));
                 else 
-                    display.value = Math.cosh(display.value);
+                    display.value = String(Math.cosh(+display.value));
                 break;
             case 'tanh':
                 if(btnDeg.classList.contains("active"))
-                    display.value = mnjs.tanh.deg(+display.value); //mnjs - npm library
+                    display.value = String(Math.tanh((((+display.value) * Math.PI)/180)));
                 else 
-                    display.value = Math.tanh(display.value);
-                break;
-            case 'floor':
-                display.value = Math.floor(display.value);
-                break;
-            case 'ceil':
-                display.value = Math.ceil(display.value);
-                break;
-            case 'round':
-                display.value = Math.round(display.value);
-                break;
-            case 'sign':
-                display.value = Math.sign(display.value);
-                break;
-            case 'trunc':
-                display.value = Math.trunc(display.value);
+                    display.value = String(Math.tanh(+display.value));
                 break;
             case 'pi':
-                display.value = Math.PI;
+                display.value = String(Math.PI);
                 break;
             case 'e':
-                display.value = Math.E;
+                display.value = String(Math.E);
+                break;
+            case 'floor':
+                display.value = String(Math.floor(+display.value));
+                break;
+            case 'ceil':
+                display.value = String(Math.ceil(+display.value));
+                break;
+            case 'round':
+                display.value = String(Math.round(+display.value));
+                break;
+            case 'sign':
+                display.value = String(Math.sign(+display.value));
+                break;
+            case 'trunc':
+                display.value = String(Math.trunc(+display.value));
                 break;
             case 'log':
-                display.value = Math.log10(display.value);
+                display.value = String(Math.log10(+display.value));
                 break;
             case 'ln':
-                display.value = Math.log(display.value); 
+                display.value = String(Math.log(+display.value)); 
                 break;
             case 'square':
-                display.value = Math.pow(display.value,2);
+                display.value = String(Math.pow(+display.value,2));
                 break;   
             case '1/x':
-                display.value = Math.pow(display.value,-1);
+                display.value = String(Math.pow(+display.value,-1));
                 break; 
             case '|x|':
-                display.value = Math.abs(display.value);
+                display.value = String(Math.abs(+display.value));
                 break; 
             case 'exp':
-                display.value = Math.exp(display.value);
-                break;  
+                display.value = String(Math.exp(+display.value));
+                break; 
             case 'sqrt':
-                display.value = Math.sqrt(display.value);
+                display.value = String(Math.sqrt(+display.value));
                 break;
             case 'fact':
                 try {
-                    display.value = func_fact();
-                  } catch (err) {
-                    display.value = err.message;
+                    display.value = String(func_fact());
+                  } catch (e:any) {
+                    display.value = e.message;
                   }
-            break; 
+            break;
             case '10raisex':
-                display.value = Math.pow(10,display.value);
+                display.value = String(Math.pow(10,+display.value));
                 break;
             case '+/-':
-                display.value = display.value*(-1);
+                display.value = String((+display.value)*(-1));
                 break;
             case 'mc':
                 func_mc();
@@ -233,16 +239,16 @@ function eventList(e){ //Event listener callback function
                 func_2nd();
                 break;
             case 'cube':
-                display.value = Math.pow(display.value,3);
+                display.value = String(Math.pow(+display.value,3));
                 break;
             case '2raisex':
-                display.value = Math.pow(2,display.value);
+                display.value = String(Math.pow(2,+display.value));
                 break;      
             case 'cbrt':
-                display.value = Math.cbrt(display.value);
+                display.value = String(Math.cbrt(+display.value));
                 break;
             case 'eraisex':
-                display.value = Math.pow(Math.E,display.value);
+                display.value = String(Math.pow(Math.E,+display.value));
                 break;
             case 'deg':
                 btnDeg.classList.remove("active");
@@ -254,11 +260,11 @@ function eventList(e){ //Event listener callback function
                 break;
             case 'f-e':
                 let num = (+display.value);
-                display.value = num.toExponential();
+                display.value = String(num.toExponential());
                 break;
             default:
                 display.value += btnText;
-        }   
+        } 
 }
 
 //Event Listener
