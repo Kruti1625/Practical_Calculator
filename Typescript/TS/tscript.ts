@@ -12,11 +12,15 @@ getComputedStyle(document.documentElement).getPropertyValue('--color-blue');
 getComputedStyle(document.documentElement).getPropertyValue('--color-grey-deactive');
 getComputedStyle(document.documentElement).getPropertyValue('--color-white-button');
 getComputedStyle(document.documentElement).getPropertyValue('--color-black');
+type BtnText = 'C' | '=' | 'dlt' | 'sin' | 'cos' | 'tan' | 'sinh' | 'cosh' | 'tanh' | 'pi' | 'e' 
+| 'floor' | 'ceil' | 'round' | 'sign' | 'trunc' | 'log' | 'ln' | 'square' | '1/x' |'|x|' | 'exp' 
+| 'sqrt' | 'fact' | '10raisex' | '+/-' | 'mc' | 'mr' | 'mplus' | 'mminus' | 'ms' | '2nd' | 'cube' 
+| '2raisex' | 'cbrt' | 'eraisex' | 'deg' | 'rad' | 'f-e' ;
 
 //Functions
 function func_fact(){ //Factorial
-    let fact=1,i:number;
-    for(i = 1;i<=(+display.value);i++){
+    let fact = 1, i: number;
+    for(i = 1; i <= (+display.value); i++){
         fact = fact * i;
     }
     if((+display.value) <= 0) 
@@ -25,64 +29,64 @@ function func_fact(){ //Factorial
 }
 
 function func_xraisey() {
-    let dvalue:string,a:string,b:string;
-    dvalue = String(display.value);
-    a = dvalue.slice(0,dvalue.indexOf("^")); //Return 1st value 
-    b = dvalue.slice(dvalue.indexOf("^") + 1); //Return 2nd value
+    let dValue: string, a: string, b: string;
+    dValue = String(display.value);
+    a = dValue.slice(0,dValue.indexOf("^")); //Return 1st value 
+    b = dValue.slice(dValue.indexOf("^") + 1); //Return 2nd value
     console.log(a,b);
     return Math.pow(+a,+b);
 }
 
 function func_yrootx() { 
-    let dvalue:string,a:string,b:string;
-    dvalue = String(display.value);
-    a = dvalue.slice(0,dvalue.indexOf("y")); 
-    b = dvalue.slice(dvalue.indexOf("t") + 1);
+    let dValue: string, a: string, b: string;
+    dValue = String(display.value);
+    a = dValue.slice(0,dValue.indexOf("y")); 
+    b = dValue.slice(dValue.indexOf("t") + 1);
     return Math.pow(+a,1/(+b));
 }
 
 function func_logbase() {
-    let dvalue:string,a:string,b:string;
-    dvalue = String(display.value);
-    a = dvalue.slice(0,dvalue.indexOf("l")); 
-    b = dvalue.slice(dvalue.indexOf("e") + 1);
+    let dValue: string, a: string, b: string;
+    dValue = String(display.value);
+    a = dValue.slice(0,dValue.indexOf("l")); 
+    b = dValue.slice(dValue.indexOf("e") + 1);
     return Math.log(+a)/Math.log(+b);
 }
 
-let arr_ms:number[] = [] , i = 0;
+let arrMemory: number[] = [] , i = 0;
 function func_ms() { // Memory store
-        if(arr_ms.length === 0)
+        if(arrMemory.length === 0)
             alert("Nothing is stored in the memory");
         else {
-            display.value = String(arr_ms[i]); 
+            display.value = String(arrMemory[i]); 
             i++;
-            if(i === arr_ms.length){
+            if(i === arrMemory.length){
                 i = 0;
             }
         }
 }
 
 function func_mplus() { //Memory plus
-    arr_ms.push(+display.value);
+    arrMemory.push(+display.value);
     display.value = ''; 
     btnMR.style.color = "var(--color-black)";
     btnMC.style.color = "var(--color-black)";
 }
 
 function func_mminus(){ //Memory minus
-    arr_ms.push(-display.value);
+    arrMemory.push(-display.value);
     display.value = '';
     btnMR.style.color = "var(--color-black)";
     btnMC.style.color = "var(--color-black)";
 }
 
 function func_mr(){ //Memory recall
-    let result = arr_ms.reduce((acc:number, cur:number) => acc + cur, 0);
+    let result = arrMemory.reduce((acc: number, cur: number) => acc + cur, 0);
     display.value = String(result);
 }
 
 function func_mc() { //Memory clear
-    arr_ms = [];
+    arrMemory = [];
     display.value = '';
     btnMR.style.color = "var(--color-grey-deactive)";
     btnMC.style.color = "var(--color-grey-deactive)";
@@ -99,8 +103,8 @@ function func_2nd(){ //Button 2nd
     })
 }
 
-function eventList(e : any){ //Event listener callback function
-    let btnText = e.target.dataset.sign; // Using data attribute
+function eventList(e: any){ //Event listener callback function
+    let btnText: BtnText = e.target.dataset.sign; // Using data attribute
 
     switch(btnText){
             case 'C':
@@ -210,7 +214,7 @@ function eventList(e : any){ //Event listener callback function
             case 'fact':
                 try {
                     display.value = String(func_fact());
-                  } catch (e:any) {
+                  } catch (e: any) {
                     display.value = e.message;
                   }
             break;
