@@ -14,8 +14,8 @@ getComputedStyle(document.documentElement) // Get css variables
 
 //Functions
 function func_fact(){ //Factorial
-    let fact=1,i;
-    for(i = 1;i<=display.value;i++){
+    let fact = 1,i;
+    for(i = 1; i <= display.value; i++){
         fact = fact * i;
     }
     if(display.value <= 0) 
@@ -24,63 +24,61 @@ function func_fact(){ //Factorial
 }
 
 function func_xraisey() { 
-    let dvalue,a,b;
-    dvalue = display.value;
-    a = dvalue.slice(0,dvalue.indexOf("^")); //Return 1st value 
-    b = dvalue.slice(dvalue.indexOf("^") + 1); //RTeturn 2nd value
+    let dValue,a,b;
+    dValue = display.value;
+    a = dValue.slice(0,dValue.indexOf("^")); //Return 1st value 
+    b = dValue.slice(dValue.indexOf("^") + 1); //RTeturn 2nd value
     return Math.pow(a,b);
 }
 
-let arr_ms = [] , i = 0;
+let  arrMemory= [] , i = 0;
 function func_ms() { // Memory store
-        if(arr_ms.length === 0)
+        if(arrMemory.length === 0)
             alert("Nothing is stored in the memory");
         else {
-            display.value = arr_ms[i]; 
+            display.value = arrMemory[i]; 
             i++;
-            if(i === arr_ms.length){
+            if(i === arrMemory.length){
                 i = 0;
             }
         }
 }
 function func_mplus() { //Memory plus
-    arr_ms.push(+display.value);
+    arrMemory.push(+display.value);
     display.value = '';
     btnMR.style.color = "var(--color-black)";
     btnMC.style.color = "var(--color-black)";
 }
 function func_mminus(){ //Memory minus
-    arr_ms.push(-display.value);
+    arrMemory.push(-display.value);
     display.value = '';
     btnMR.style.color = "var(--color-black)";
     btnMC.style.color = "var(--color-black)";
 }
 function func_mr(){ //Memory recall
-    let result = arr_ms.reduce(function (acc, cur) {
-        return acc + cur;
-      }, 0);
-      display.value = result;
+    let result = arrMemory.reduce((acc, cur) => acc + cur, 0);
+    display.value = result;
 }
 function func_mc() { //Memory clear
-    arr_ms = [];
+    arrMemory = [];
     display.value = '';
     btnMR.style.color = "var(--color-grey-deactive)";
     btnMC.style.color = "var(--color-grey-deactive)";
 }
 
 function func_yrootx() { 
-    let dvalue,a,b;
-    dvalue = display.value;
-    a = dvalue.slice(0,dvalue.indexOf("y")); 
-    b = dvalue.slice(dvalue.indexOf("t") + 1);
+    let dValue,a,b;
+    dValue = display.value;
+    a = dValue.slice(0,dValue.indexOf("y")); 
+    b = dValue.slice(dValue.indexOf("t") + 1);
     return Math.pow(a,1/b);
 }
 
 function func_logbase() {
-    let dvalue,a,b;
-    dvalue = display.value;
-    a = dvalue.slice(0,dvalue.indexOf("l")); 
-    b = dvalue.slice(dvalue.indexOf("e") + 1);
+    let dValue,a,b;
+    dValue = display.value;
+    a = dValue.slice(0,dValue.indexOf("l")); 
+    b = dValue.slice(dValue.indexOf("e") + 1);
     return Math.log(a)/Math.log(b);
 }
 
@@ -176,6 +174,12 @@ function eventList(e){ //Event listener callback function
             case 'trunc':
                 display.value = Math.trunc(display.value);
                 break;
+            case 'pi':
+                display.value = Math.PI;
+                break;
+            case 'e':
+                display.value = Math.E;
+                break;
             case 'log':
                 display.value = Math.log10(display.value);
                 break;
@@ -261,6 +265,3 @@ function eventList(e){ //Event listener callback function
 for(const btn of buttons){
     btn.addEventListener('click',eventList)
 }
-
-
-
